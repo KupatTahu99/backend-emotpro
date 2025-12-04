@@ -10,14 +10,9 @@ class EmotionCNNModel:
     def __init__(self, model_path='models/model.h5'):
         self.model = self._build_model()
         self.load_weights(model_path)
-        # Urutan label sesuai dataset training (Alphabetical)
         self.emotion_labels = {0: "Marah", 1: "Jijik", 2: "Takut", 3: "Senang", 4: "Netral", 5: "Sedih", 6: "Terkejut"}
 
     def _build_model(self):
-        """
-        Membangun ulang arsitektur CNN persis seperti di main.py Anda.
-        Jika struktur ini beda sedikit saja, load_weights akan error.
-        """
         model = Sequential()
 
         model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(48, 48, 1)))
@@ -36,19 +31,16 @@ class EmotionCNNModel:
         model.add(Dropout(0.5))
         model.add(Dense(7, activation='softmax'))
 
-        # Compile dummy agar struktur lengkap (optimizer tidak berpengaruh untuk inferensi)
         model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=0.0001), metrics=['accuracy'])
         
         return model
 
     def load_weights(self, path):
-        # Cek path absolut agar aman
         base_dir = os.getcwd()
         full_path = os.path.join(base_dir, path)
         
         # Fallback cek path
         if not os.path.exists(full_path):
-             # Coba cek langsung di root jika tidak ada di folder models/
              full_path = os.path.join(base_dir, 'model.h5')
 
         if os.path.exists(full_path):

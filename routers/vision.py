@@ -58,7 +58,8 @@ async def detect_emotion(file: UploadFile = File(...)):
                 "face_id": idx,
                 "box": {"x": int(x), "y": int(y), "w": int(w), "h": int(h)},
                 "emotion": emotion_result['emotion'],
-                "confidence": emotion_result['confidence']
+                "confidence": emotion_result['confidence'],
+                "all_scores": emotion_result['all_probabilities']
             })
         
         # Convert gambar hasil anotasi ke Base64 (untuk preview di frontend)

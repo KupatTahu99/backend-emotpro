@@ -161,7 +161,7 @@ async def batch_analyze_frames(frames: List[CameraFrameRequest]):
     
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception as e:  
         raise HTTPException(status_code=500, detail=str(e))
 
 

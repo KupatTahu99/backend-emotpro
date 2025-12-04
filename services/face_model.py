@@ -16,11 +16,6 @@ class FaceDetectionService:
             )
     
     def detect_faces(self, image: np.ndarray) -> List[Tuple[int, int, int, int]]:
-        """
-        Detect faces in image
-        Returns: list of (x, y, w, h) coordinates
-        """
-        # Convert to grayscale
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
         # Detect faces
@@ -40,3 +35,5 @@ class FaceDetectionService:
         x, y, w, h = face_coords
         face_img = image[y:y+h, x:x+w]
         return face_img
+    
+face_service = FaceDetectionService()
