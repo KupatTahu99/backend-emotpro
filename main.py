@@ -2,7 +2,7 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import text, multimodal, vision 
+from routers import text, vision 
 
 app = FastAPI(
     title="Emotion & Anger Detection API",
