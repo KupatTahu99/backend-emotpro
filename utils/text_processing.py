@@ -262,15 +262,6 @@ def preprocess_text(text: str) -> str:
 
 
 def validate_and_correct_words(text: str) -> Tuple[str, Dict]:
-    """
-    Validasi dan koreksi typo dalam teks dengan fuzzy matching
-    
-    Args:
-        text: Teks yang akan divalidasi
-        
-    Returns:
-        Tuple berisi: (teks_terkoreksi, info_koreksi)
-    """
     words = text.lower().split()
     corrected_words = []
     corrections = {
@@ -287,7 +278,6 @@ def validate_and_correct_words(text: str) -> Tuple[str, Dict]:
     all_valid_keywords = list(set(all_valid_keywords))  # Remove duplicates
     
     for word in words:
-        # Hapus punctuation untuk validasi
         clean_word = re.sub(r'[!?.,-]', '', word)
         
         # Skip empty words
@@ -364,9 +354,8 @@ def keyword_based_emotion(text: str) -> Tuple[str, float]:
     text_lower = text.lower()
     
     emotions = {}
-    emotion_matches = {}  # Untuk tracking keyword mana yang match
-    
-    # Hitung kemunculan keyword untuk setiap emosi
+    emotion_matches = {}
+
     for emotion, keywords in EMOTION_VOCABULARY.items():
         count = 0
         matched_keywords = []
@@ -377,15 +366,12 @@ def keyword_based_emotion(text: str) -> Tuple[str, float]:
         emotions[emotion] = count
         emotion_matches[emotion] = matched_keywords
     
-    # Jika tidak ada emotion keyword yang ditemukan
     if not any(emotions.values()):
         return "neutral", 0.5, {}
     
-    # Cari emotion dengan count tertinggi
     max_emotion = max(emotions, key=emotions.get)
     max_count = emotions[max_emotion]
     
-    # Hitung confidence berdasarkan jumlah keyword yang ditemukan
     confidence = min(0.95, 0.5 + (max_count * 0.15))
     
     return max_emotion, confidence, emotion_matches

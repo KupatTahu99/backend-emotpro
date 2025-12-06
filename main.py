@@ -21,11 +21,7 @@ app.add_middleware(
 
 # 1. Text Analysis
 app.include_router(text.router, prefix="/api/text", tags=["Text Analysis"])
-
-# 2. Multimodal Analysis
-app.include_router(multimodal.router, prefix="/api/multimodal", tags=["Multimodal Analysis"])
-
-# 3. Vision / Face Analysis
+# 2. Vision / Face Analysis
 app.include_router(vision.router) 
 
 
